@@ -1,4 +1,6 @@
+import styled from 'styled-components'
 import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
 function Register() {
@@ -22,7 +24,8 @@ function Register() {
   }
 
   return (
-    <div>
+    <Container>
+      <Title>Register</Title>
       <form onSubmit={handleRegister}>
         <input type="text"
           placeholder="Username"
@@ -40,14 +43,63 @@ function Register() {
           onChange={(e) => setRegisterData(prev => ({...prev, password: e.target.value}))}
         />
         <input type="password"
-          placeholder="Password"
+          placeholder="Confirm Password"
           value={registerData.rePassword}
           onChange={(e) => setRegisterData(prev => ({...prev, rePassword: e.target.value}))}
         />
         <button>Register</button>
       </form>
-    </div>
+      <Extra>
+        <p>Already have an account?</p>
+        <Link to="/login">Login here</Link>
+      </Extra>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
+    input, button {
+      height: 60px;
+      margin-top: 15px;
+      border: none;
+      background-color: #F6F6F6;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 300;
+      ::placeholder {
+        font-size: 18px;
+        color: #C6C6C6;
+      }
+    }
+    button {
+      margin-top: 25px;
+      background-color: #003049;
+      color: #FFFFFF;
+    }
+  }
+`
+const Title = styled.span`
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #003049;
+  font-size: 24px;
+  font-weight: 700;
+`
+const Extra = styled.div`
+  margin-top: 25px;
+  text-align: center;
+  font-weight: 18px;
+  font-weight: 300;
+  a {
+    text-decoration: underline;
+  }
+`
 
 export default Register
