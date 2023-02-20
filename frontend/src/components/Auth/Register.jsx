@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
 function Register() {
-  const { registerUser, loginUser } = useContext(AuthContext)
+  const { registerUser, loginUser, error } = useContext(AuthContext)
   const [registerData, setRegisterData] = useState({
     username: "",
     email: "",
@@ -81,6 +81,10 @@ const Container = styled.div`
       margin-top: 25px;
       background-color: #003049;
       color: #FFFFFF;
+      cursor: pointer;
+      :active {
+        opacity: 0.9;
+      }
     }
   }
 `

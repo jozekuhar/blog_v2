@@ -1,9 +1,9 @@
 import Navbar from "./Navbar"
-import Search from "./Search"
+import ExtraNav from "./ExtraNav"
 import Sidebar from "./Sidebar"
 
 export {
   Navbar,
-  Search,
+  ExtraNav,
   Sidebar,
 }

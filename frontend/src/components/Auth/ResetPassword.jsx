@@ -1,45 +1,23 @@
 import styled from 'styled-components'
 import React, { useState, useContext } from 'react'
 import { Link } from "react-router-dom"
-import AuthContext from '../../context/AuthContext'
 
-function Login() {
-  const { loginUser, error } = useContext(AuthContext)
-  const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
-  })
-
-  async function handleLogin(e) {
-    e.preventDefault()
-    await loginUser(loginData.username, loginData.password)
-  }
-
+function ResetPassword() {
   return (
     <Container>
-      <Title>Login</Title>
-      <form onSubmit={handleLogin}>
-        <input type="text"
-          placeholder="Username"
-          value={loginData.username}
-          onChange={(e) => setLoginData(prev => ({...prev, username: e.target.value}))}
-          required
-        />
+      <Title>Reset Password</Title>
+      <form>
         <input type="password"
           placeholder="Password"
-          value={loginData.password}
-          onChange={(e) => setLoginData(prev => ({...prev, password: e.target.value}))}
+          // value={loginData.password}
+          // onChange={(e) => setLoginData(prev => ({...prev, password: e.target.value}))}
           required
-          error={error}
         />
-        {error && <Error>{error.response.data.detail}</Error>}
         <button>Login</button>
       </form>
       <Extra>
-        <p>Don’t have an account?</p>
-        <Link to="/register">Join now</Link>
-        <p>Forgotten Password?</p>
-        <Link to="/reset">Reset Password</Link>
+        <p>Login instead?</p>
+        <Link to="/login">Login here</Link>
       </Extra>
     </Container>
   )
@@ -102,4 +80,4 @@ const Error = styled.div`
   margin-top: 25px;
 `
 
-export default Login
+export default ResetPassword

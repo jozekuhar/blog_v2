@@ -1,13 +1,13 @@
 import axios from "axios"
 import React, { createContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+
 
 const AuthContext = createContext()
 
 function AuthProvider({children}) {
-  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [authTokens, setAuthTokens] = useState(null)
   const [user, setUser] = useState(null)
 
@@ -21,7 +21,7 @@ function AuthProvider({children}) {
         re_password: rePassword,
       })
     } catch(error) {
-      console.log(error.response)
+      setError(error)
     }
   }
 
@@ -36,7 +36,7 @@ function AuthProvider({children}) {
       localStorage.setItem("authTokens", JSON.stringify(response.data))
       getUserData()
     } catch(error) {
-      console.log(error.response)
+      setError(error)
     }
   }
 
@@ -50,7 +50,7 @@ function AuthProvider({children}) {
       localStorage.setItem("authTokens", JSON.stringify(response.data))
       getUserData()
     } catch(error) {
-      console.log(error.response)
+      setError(error)
     }
     if (loading) {
       setLoading(false)
@@ -67,7 +67,7 @@ function AuthProvider({children}) {
       })
       setUser(response.data)
     } catch(error) {
-      console.log(error.response)
+      setError(error)
     }
   }
 
@@ -81,6 +81,9 @@ function AuthProvider({children}) {
     if (loading) {
       updateToken()
     }
+
+    setError(null)
+
     const fourMinutes = 1000 * 60 * 4
     const interval = setInterval(() => {
       if (authTokens) {
@@ -93,6 +96,7 @@ function AuthProvider({children}) {
   const context = {
     authTokens: authTokens,
     user: user,
+    error: error,
     registerUser: registerUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
